@@ -1,0 +1,64 @@
+﻿@model LojaSuplemento.Models.Produto
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Create</h1>
+
+<h4>Produto</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="CodigoBarras" class="control-label"></label>
+                <input asp-for="CodigoBarras" class="form-control" />
+                <span asp-validation-for="CodigoBarras" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TituloProduto" class="control-label"></label>
+                <input asp-for="TituloProduto" class="form-control" />
+                <span asp-validation-for="TituloProduto" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DescricaoProduto" class="control-label"></label>
+                <input asp-for="DescricaoProduto" class="form-control" />
+                <span asp-validation-for="DescricaoProduto" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PrecoProduto" class="control-label"></label>
+                <input asp-for="PrecoProduto" class="form-control" />
+                <span asp-validation-for="PrecoProduto" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DataProdutoValidadeInicio" class="control-label"></label>
+                <input asp-for="DataProdutoValidadeInicio" class="form-control" />
+                <span asp-validation-for="DataProdutoValidadeInicio" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DataProdutoValidadeFim" class="control-label"></label>
+                <input asp-for="DataProdutoValidadeFim" class="form-control" />
+                <span asp-validation-for="DataProdutoValidadeFim" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DataProdutoInclusao" class="control-label"></label>
+                <input asp-for="DataProdutoInclusao" class="form-control" />
+                <span asp-validation-for="DataProdutoInclusao" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

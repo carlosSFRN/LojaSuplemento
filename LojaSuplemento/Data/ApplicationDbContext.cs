@@ -21,5 +21,9 @@ namespace LojaSuplemento.Data
         public DbSet<TipoAcesso> TipoAcesso { get; set; }
 
         public DbSet<IdentityUser> Usuario { get; set; }
+
+        public DbSet<LojaSuplemento.Models.Categoria> Categoria { get; set; }
+
+        public DbSet<LojaSuplemento.Models.Produto> Produto { get; set; }
     }
 }

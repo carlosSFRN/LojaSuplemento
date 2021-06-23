@@ -15,7 +15,7 @@ namespace LojaSuplemento.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.12")
+                .HasAnnotation("ProductVersion", "3.1.15")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -50,6 +50,21 @@ namespace LojaSuplemento.Migrations
                     b.ToTable("AcessoTipoUsuario");
                 });
 
+            modelBuilder.Entity("LojaSuplemento.Models.Categoria", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("NomeCategoria")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Categoria");
+                });
+
             modelBuilder.Entity("LojaSuplemento.Models.PerfilUsuario", b =>
                 {
                     b.Property<int>("Id")
@@ -71,6 +86,39 @@ namespace LojaSuplemento.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("PerfilUsuario");
+                });
+
+            modelBuilder.Entity("LojaSuplemento.Models.Produto", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CodigoBarras")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("DataProdutoInclusao")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DataProdutoValidadeFim")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DataProdutoValidadeInicio")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("DescricaoProduto")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("PrecoProduto")
+                        .HasColumnType("Money");
+
+                    b.Property<string>("TituloProduto")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Produto");
                 });
 
             modelBuilder.Entity("LojaSuplemento.Models.TipoAcesso", b =>

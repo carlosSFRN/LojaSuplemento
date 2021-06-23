@@ -19,172 +19,181 @@
                   integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" />
         </environment>
         <link rel="stylesheet" href="~/css/site.css" />
-    </head>
-    <body>
-        <header>
-            <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-                <div class="container">
-                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Loja Suplemento</a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                            aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row">
+        </head>
+        <body>
+            <header>
+                <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+                    <div class="container">
+                        <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Loja Suplemento</a>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                                aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row">
 
-                        <ul class="navbar-nav flex-grow-1">
-                            @if (SignInManager.IsSignedIn(User))
-                            {
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                                </li>
+                            <ul class="navbar-nav flex-grow-1">
+                                @if (SignInManager.IsSignedIn(User))
+                                {
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Dashboard</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="Categorias" asp-action="Index">Categoria</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="Produtos" asp-action="Index">Produtos</a>
+                                    </li>
 
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        Controle de Acesso
-                                    </a>
-                                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                        <a class="nav-link text-dark" asp-area="" asp-controller="TipoUsuario" asp-action="Index">Tipo Usuário</a>
-                                        <a class="nav-link text-dark" asp-area="" asp-controller="TipoAcesso" asp-action="Index">Tipo Acesso</a>
-                                        <a class="nav-link text-dark" asp-area="" asp-controller="AcessoTipoUsuario" asp-action="Index">Acessos Tipo Usuario</a>
-                                        <a class="nav-link text-dark" asp-area="" asp-controller="PerfilUsuario" asp-action="Index">Perfil do Usuario</a>
-                                    </div>
-                                </li>
-                            }
-                        </ul>
-                        <partial name="_LoginPartial" />
-                    </div>
-                </div>
-            </nav>
-        </header>
-        <div class="container">
-            <partial name="_CookieConsentPartial" />
-            <main role="main" class="pb-3">
-                @RenderBody()
-            </main>
-        </div>
-
-        <footer class="border-top footer text-muted">
-            <div class="container">
-                &copy; 2019 - WebPerfilAcesso - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-            </div>
-        </footer>
-
-        <environment include="Development">
-            <script src="~/lib/jquery/dist/jquery.js"></script>
-            <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
-        </environment>
-        <environment exclude="Development">
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"
-                    asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
-                    asp-fallback-test="window.jQuery"
-                    crossorigin="anonymous"
-                    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=">
-            </script>
-            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"
-                    asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"
-                    asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
-                    crossorigin="anonymous"
-                    integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o">
-            </script>
-        </environment>
-        <script src="~/js/site.js" asp-append-version="true"></script>
-
-        @RenderSection("Scripts", required: false)
-    </body>
-    </html>
-
-@*<!DOCTYPE html>
-    <html>
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>@ViewData["Title"]</title>-->
-
-        <!-- Bootstrap core CSS -->
-        <!--<link href="~/resources/lib/bootstrap-4.2.1-dist/css/bootstrap.min.css" rel="stylesheet" />
-        <link href="~/resources/lib/pagedlist/PagedList.css" rel="stylesheet" type="text/css" />
-
-        <style>
-            .bd-placeholder-img {
-                font-size: 1.125rem;
-                text-anchor: middle;
-                -webkit-user-select: none;
-                -moz-user-select: none;
-                -ms-user-select: none;
-                user-select: none;
-            }
-
-            @@media (min-width: 768px) {
-                .bd-placeholder-img-lg {
-                    font-size: 3.5rem;
-                }
-            }
-        </style>-->
-        <!-- Custom styles for this template -->
-        <!--<link href="~/resources/lib/dashboard/dashboard.css" rel="stylesheet">
-    </head>
-
-    <body>
-        <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
-            <div class="d-flex justify-content-between">
-
-                <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Loja Suplemento</a>
-                <partial name="_LoginPartial" />
-            </div>
-        </nav>
-
-        <div class="container-fluid">
-            <div class="row">
-
-                <nav class="col-md-2 d-none d-md-block bg-light sidebar">
-                    <div class="sidebar-sticky">
-
-
-                        @if (SignInManager.IsSignedIn(User))
-                        {
-                            <ul class="nav flex-column">
-
-                                <li class="nav-item">
-                                    <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index"><span data-feather="user"></span>Home</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" asp-area="" asp-controller="TipoUsuario" asp-action="Index"><span data-feather="user"></span>Tipo Usuário</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" asp-area="" asp-controller="TipoAcesso" asp-action="Index"><span data-feather="user"></span>Tipo Acesso</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" asp-area="" asp-controller="AcessoTipoUsuario" asp-action="Index"><span data-feather="user"></span>Acessos Tipo Usuario</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" asp-area="" asp-controller="PerfilUsuario" asp-action="Index"><span data-feather="user"></span>Perfil do Usuario</a>
-                                </li>
-
-
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            Controle de Acesso
+                                        </a>
+                                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                            <a class="nav-link text-dark" asp-area="" asp-controller="TipoUsuario" asp-action="Index">Tipo Usuário</a>
+                                            <a class="nav-link text-dark" asp-area="" asp-controller="TipoAcesso" asp-action="Index">Tipo Acesso</a>
+                                            <a class="nav-link text-dark" asp-area="" asp-controller="AcessoTipoUsuario" asp-action="Index">Acessos Tipo Usuario</a>
+                                            <a class="nav-link text-dark" asp-area="" asp-controller="PerfilUsuario" asp-action="Index">Perfil do Usuario</a>
+                                        </div>
+                                    </li>
+                                }
                             </ul>
-                        }
-
+                            <partial name="_LoginPartial" />
+                        </div>
                     </div>
                 </nav>
-
-
+            </header>
+            <div class="container">
                 <partial name="_CookieConsentPartial" />
-                <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-
+                <main role="main" class="pb-3">
                     @RenderBody()
-
                 </main>
             </div>
-        </div>
 
-        <script src="~/resources/lib/jquery3.3.1/jquery-3.3.1.min.js"></script>
-        <script src="~/resources/lib/mask/jquery.mask.min.js"></script>
-        <script src="~/resources/lib/bootstrap-4.2.1-dist/js/bootstrap.bundle.min.js"></script>
-        <script src="~/resources/lib/feather/feather.js"></script>
-        <script src="~/resources/lib/charts/charts.js"></script>
-        <script src="~/resources/lib/dashboard/dashboard.js"></script>
-        <script src="~/js/Actions.js"></script>
+            <footer class="border-top footer text-muted">
+                <div class="container">
+                    &copy; 2019 - WebPerfilAcesso - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                </div>
+            </footer>
 
-        @RenderSection("Scripts", required: false)
-    </body>
-    </html>*@
+            <environment include="Development">
+                <script src="~/lib/jquery/dist/jquery.js"></script>
+                <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
+            </environment>
+            <environment exclude="Development">
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"
+                        asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                        asp-fallback-test="window.jQuery"
+                        crossorigin="anonymous"
+                        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=">
+                </script>
+                <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"
+                        asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"
+                        asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
+                        crossorigin="anonymous"
+                        integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o">
+                </script>
+            </environment>
+            <script src="~/js/site.js" asp-append-version="true"></script>
+            <script src="~/resources/lib/feather/feather.js"></script>
+            <script src="~/resources/lib/dashboard/dashboard.js"></script>
+            <script src="~/js/Actions.js"></script>
+
+            @RenderSection("Scripts", required: false)
+        </body>
+        </html>
+
+    @*<!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="utf-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+            <title>@ViewData["Title"]</title>-->
+
+            <!-- Bootstrap core CSS -->
+            <!--<link href="~/resources/lib/bootstrap-4.2.1-dist/css/bootstrap.min.css" rel="stylesheet" />
+            <link href="~/resources/lib/pagedlist/PagedList.css" rel="stylesheet" type="text/css" />
+
+            <style>
+                .bd-placeholder-img {
+                    font-size: 1.125rem;
+                    text-anchor: middle;
+                    -webkit-user-select: none;
+                    -moz-user-select: none;
+                    -ms-user-select: none;
+                    user-select: none;
+                }
+
+                @@media (min-width: 768px) {
+                    .bd-placeholder-img-lg {
+                        font-size: 3.5rem;
+                    }
+                }
+            </style>-->
+            <!-- Custom styles for this template -->
+            <!--<link href="~/resources/lib/dashboard/dashboard.css" rel="stylesheet">
+        </head>
+
+        <body>
+            <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
+                <div class="d-flex justify-content-between">
+
+                    <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Loja Suplemento</a>
+                    <partial name="_LoginPartial" />
+                </div>
+            </nav>
+
+            <div class="container-fluid">
+                <div class="row">
+
+                    <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+                        <div class="sidebar-sticky">
+
+
+                            @if (SignInManager.IsSignedIn(User))
+                            {
+                                <ul class="nav flex-column">
+
+                                    <li class="nav-item">
+                                        <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index"><span data-feather="user"></span>Home</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" asp-area="" asp-controller="TipoUsuario" asp-action="Index"><span data-feather="user"></span>Tipo Usuário</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" asp-area="" asp-controller="TipoAcesso" asp-action="Index"><span data-feather="user"></span>Tipo Acesso</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" asp-area="" asp-controller="AcessoTipoUsuario" asp-action="Index"><span data-feather="user"></span>Acessos Tipo Usuario</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" asp-area="" asp-controller="PerfilUsuario" asp-action="Index"><span data-feather="user"></span>Perfil do Usuario</a>
+                                    </li>
+
+
+                                </ul>
+                            }
+
+                        </div>
+                    </nav>
+
+
+                    <partial name="_CookieConsentPartial" />
+                    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+
+                        @RenderBody()
+
+                    </main>
+                </div>
+            </div>
+
+            <script src="~/resources/lib/jquery3.3.1/jquery-3.3.1.min.js"></script>
+            <script src="~/resources/lib/mask/jquery.mask.min.js"></script>
+            <script src="~/resources/lib/bootstrap-4.2.1-dist/js/bootstrap.bundle.min.js"></script>
+            <script src="~/resources/lib/feather/feather.js"></script>
+            <script src="~/resources/lib/charts/charts.js"></script>
+            <script src="~/resources/lib/dashboard/dashboard.js"></script>
+            <script src="~/js/Actions.js"></script>
+
+            @RenderSection("Scripts", required: false)
+        </body>
+        </html>*@
