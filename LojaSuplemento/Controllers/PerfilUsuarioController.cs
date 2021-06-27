@@ -1,5 +1,6 @@
 ﻿using LojaSuplemento.Data;
 using LojaSuplemento.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -19,6 +20,7 @@ namespace LojaSuplemento.Controllers
             _context = context;
         }
 
+        [Authorize]
         // GET: PerfilUsuarios
         public async Task<IActionResult> Index()
         {
@@ -35,6 +37,7 @@ namespace LojaSuplemento.Controllers
             return View(await applicationDbContext.ToListAsync());
         }
 
+        [Authorize]
         // GET: PerfilUsuarios/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -55,6 +58,7 @@ namespace LojaSuplemento.Controllers
             return View(perfilUsuario);
         }
 
+        [Authorize]
         // GET: PerfilUsuarios/Create
         public IActionResult Create()
         {
@@ -66,6 +70,8 @@ namespace LojaSuplemento.Controllers
         // POST: PerfilUsuarios/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,IdTipoUsuario,UserId")] PerfilUsuario perfilUsuario)
@@ -81,6 +87,7 @@ namespace LojaSuplemento.Controllers
             return View(perfilUsuario);
         }
 
+        [Authorize]
         // GET: PerfilUsuarios/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -102,6 +109,7 @@ namespace LojaSuplemento.Controllers
         // POST: PerfilUsuarios/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,IdTipoUsuario,UserId")] PerfilUsuario perfilUsuario)
@@ -136,6 +144,7 @@ namespace LojaSuplemento.Controllers
             return View(perfilUsuario);
         }
 
+        [Authorize]
         // GET: PerfilUsuarios/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -155,7 +164,7 @@ namespace LojaSuplemento.Controllers
 
             return View(perfilUsuario);
         }
-
+        [Authorize]
         // POST: PerfilUsuarios/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]

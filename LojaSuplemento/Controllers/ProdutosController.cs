@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using LojaSuplemento.Data;
 using LojaSuplemento.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace LojaSuplemento.Views
 {
@@ -19,12 +20,14 @@ namespace LojaSuplemento.Views
             _context = context;
         }
 
+        [Authorize]
         // GET: Produtoes
         public async Task<IActionResult> Index()
         {
             return View(await _context.Produto.ToListAsync());
         }
 
+        [Authorize]
         // GET: Produtoes/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -43,6 +46,7 @@ namespace LojaSuplemento.Views
             return View(produto);
         }
 
+        [Authorize]
         // GET: Produtoes/Create
         public IActionResult Create()
         {
@@ -52,6 +56,7 @@ namespace LojaSuplemento.Views
         // POST: Produtoes/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,CodigoBarras,TituloProduto,DescricaoProduto,PrecoProduto,DataProdutoValidadeInicio,DataProdutoValidadeFim,DataProdutoInclusao")] Produto produto)
@@ -65,6 +70,7 @@ namespace LojaSuplemento.Views
             return View(produto);
         }
 
+        [Authorize]
         // GET: Produtoes/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -84,6 +90,7 @@ namespace LojaSuplemento.Views
         // POST: Produtoes/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,CodigoBarras,TituloProduto,DescricaoProduto,PrecoProduto,DataProdutoValidadeInicio,DataProdutoValidadeFim,DataProdutoInclusao")] Produto produto)
@@ -116,6 +123,7 @@ namespace LojaSuplemento.Views
             return View(produto);
         }
 
+        [Authorize]
         // GET: Produtoes/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -134,6 +142,7 @@ namespace LojaSuplemento.Views
             return View(produto);
         }
 
+        [Authorize]
         // POST: Produtoes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]

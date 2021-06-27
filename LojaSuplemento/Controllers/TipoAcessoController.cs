@@ -1,6 +1,7 @@
 ﻿using LojaSuplemento.Controllers;
 using LojaSuplemento.Data;
 using LojaSuplemento.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -21,6 +22,7 @@ namespace LojaSuplemento.Views
             _context = context;
         }
 
+        [Authorize]
         // GET: TipoAcessoController
         public async Task<IActionResult> Index()
         {
@@ -35,6 +37,7 @@ namespace LojaSuplemento.Views
             return View(await _context.TipoAcesso.ToListAsync());
         }
 
+        [Authorize]
         // GET: TipoAcessoController/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -53,12 +56,14 @@ namespace LojaSuplemento.Views
             return View(tipoAcesso);
         }
 
+        [Authorize]
         // GET: TipoAcessoController/Create
         public ActionResult Create()
         {
             return View();
         }
 
+        [Authorize]
         // POST: TipoAcessoController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -73,6 +78,7 @@ namespace LojaSuplemento.Views
             return View(tipoAcesso);
         }
 
+        [Authorize]
         // GET: TipoAcessoController/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -89,6 +95,7 @@ namespace LojaSuplemento.Views
             return View(tipoAcesso);
         }
 
+        [Authorize]
         // POST: TipoAcessoController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -122,6 +129,7 @@ namespace LojaSuplemento.Views
             return View(tipoAcesso);
         }
 
+        [Authorize]
         // GET: TipoAcessoController/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -140,6 +148,7 @@ namespace LojaSuplemento.Views
             return View(tipoAcesso);
         }
 
+        [Authorize]
         // POST: TipoAcessoController/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
