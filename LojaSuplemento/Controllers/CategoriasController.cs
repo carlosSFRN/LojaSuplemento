@@ -28,25 +28,6 @@ namespace LojaSuplemento.Views
         }
 
         [Authorize]
-        // GET: Categorias/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var categoria = await _context.Categoria
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (categoria == null)
-            {
-                return NotFound();
-            }
-
-            return View(categoria);
-        }
-
-        [Authorize]
         // GET: Categorias/Create
         public IActionResult Create()
         {
@@ -132,26 +113,18 @@ namespace LojaSuplemento.Views
                 return NotFound();
             }
 
-            var categoria = await _context.Categoria
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (categoria == null)
+            var categoria = await _context.Categoria.FindAsync(id);
+
+            if (categoria.Id > 0)
+            {
+                _context.Categoria.Remove(categoria);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            else
             {
                 return NotFound();
             }
-
-            return View(categoria);
-        }
-
-        [Authorize]
-        // POST: Categorias/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var categoria = await _context.Categoria.FindAsync(id);
-            _context.Categoria.Remove(categoria);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
         }
 
         private bool CategoriaExists(int id)

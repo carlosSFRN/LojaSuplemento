@@ -1,15 +1,64 @@
-﻿@using Microsoft.AspNetCore.Identity
-@inject SignInManager<IdentityUser> SignInManager
-@inject UserManager<IdentityUser> UserManager
-
+﻿@model IEnumerable<LojaSuplemento.Models.Produto>
 @{
-    ViewData["Title"] = "Home Page";
-
-    Layout = "_Layout";
+    Layout = "~/Views/Shared/_LayoutInicial.cshtml";
 }
 
+<style>
+    img {
+        height: 60vh !important;
+    }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    @@media (min-width: 576px){
+        .navbar-expand-sm .navbar-collapse {
+            justify-content: flex-end;
+        }
+    }
+
+</style>
+
+<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+    <ol class="carousel-indicators">
+        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+    </ol>
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <img class="d-block w-100" src="/img/whey-1.jpg" alt="First slide">
+        </div>
+        <div class="carousel-item">
+            <img class="d-block w-100" src="/img/whey-2.jpg" alt="Second slide">
+        </div>
+        <div class="carousel-item">
+            <img class="d-block w-100" src="/img/whey-3.jpg" alt="Third slide">
+        </div>
+    </div>
+    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Anterior</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Proximo</span>
+    </a>
+</div>
+
+
+<div class="container mt-5 mb-5">
+    <div class="row hidden-md-up">
+        @foreach(var item in Model)
+        {
+            <div class="col-md-4">
+                <div class="card">
+                    <img class="card-img-top" src="/img/produtos/@item.ImageUrlPath" alt="Card image cap" style="width:345px; height:345px;">
+                    <div class="card-body">
+                        <h5 class="card-title">@item.TituloProduto</h5>
+                        <p class="card-text">@item.DescricaoProduto </p>
+                        <a href="#" class="btn btn-primary"><i class="fa fa-plus-square mr-1"></i>Adicionar ao Carrinho</a>
+                    </div>
+                </div>
+            </div>
+        } 
+    
+    </div>
 </div>

@@ -110,8 +110,14 @@ namespace LojaSuplemento.Migrations
                     b.Property<string>("DescricaoProduto")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("ImageUrlPath")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<decimal>("PrecoProduto")
                         .HasColumnType("Money");
+
+                    b.Property<int>("Quantidade")
+                        .HasColumnType("int");
 
                     b.Property<string>("TituloProduto")
                         .HasColumnType("nvarchar(max)");

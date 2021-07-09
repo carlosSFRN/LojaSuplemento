@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -11,30 +12,49 @@ namespace LojaSuplemento.Models
     {
         public int Id { get; set; }
 
+        [Required(ErrorMessage = "'Código de barras' é obrigatório")]
         [Display(Name = "Código de Barras")]
         public string CodigoBarras { get; set; }
 
+        [Required(ErrorMessage = "'Título do produto' é obrigatório")]
         [Display(Name = "Titulo do Produto")]
         public string TituloProduto { get; set; }
 
+        [Required(ErrorMessage = "'Descrição do produto' é obrigatório")]
         [Display(Name = "Descrição do Produto")]
         public string DescricaoProduto { get; set; }
 
+        [Required(ErrorMessage = "'Preço do produto' é obrigatório")]
         [Column(TypeName = "Money")]
         [Display(Name = "Preço do Produto")]
         public decimal PrecoProduto { get; set; }
 
+        [Required(ErrorMessage = "'Estoque do produto' é obrigatório")]
+        [Display(Name = "Estoque")]
+        public int Quantidade { get; set; }
+
+        [Required(ErrorMessage = "'Data de validade início' é obrigatório")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         [DataType(DataType.Date)]
         [Display(Name = "Data de Validade Inicio")]
         public DateTime DataProdutoValidadeInicio { get; set; }
 
+        [Required(ErrorMessage = "'Data de validade Fim' é obrigatório")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         [DataType(DataType.Date)]
         [Display(Name = "Data de Validade Fim")]
         public DateTime DataProdutoValidadeFim { get; set; }
 
+        [Required(ErrorMessage = "'Data de inclusão' é obrigatório")]
         [Display(Name = "Data Inclusão")]
         public DateTime DataProdutoInclusao { get; set; }
+
+        [Required(ErrorMessage = "'Imagem do produto' é obrigatório")]
+        [NotMapped]
+        [Display(Name = "Imagem do Produto")]
+        public IFormFile ImageUrl { get; set; }
+
+        [Display(Name = "Imagem do Produto")]
+        public string ImageUrlPath { get; set; }
     }
 }
