@@ -41,13 +41,19 @@
             font-size: 2rem !important;
             color: #cccccc !important;
         }
+
+        .bg-gradient-dark {
+            background-color: #214a30 !important;
+            background-image: linear-gradient( 180deg,#080a19 10%,#27166d 100%) !important;
+            background-size: cover !important;
+        }
     </style>
 
     <!-- Page Wrapper -->
     <div id="wrapper">
 
         <!-- Sidebar -->
-        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+        <ul class="navbar-nav bg-gradient-dark sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center">
@@ -391,6 +397,13 @@
     <script src="~/lib/jquery/jquery.min.js"></script>
     <script src="~/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
 
+    <script src="~/lib/jquery-mask-money/jquery.maskMoney.min.js"></script>
+    <script>
+        $(function () {
+            $('#PrecoProduto').maskMoney({ prefix: 'R$ ', allowNegative: true, thousands: '.', decimal: ',', affixesStay: false });
+        })
+    </script>
+
     <!-- Core plugin JavaScript-->
     <script src="~/lib/jquery-easing/jquery.easing.min.js"></script>
 
@@ -411,6 +424,7 @@
     <!-- Page level custom scripts -->
     <script src="~/js/demo/datatables-demo.js"></script>
     <script src="~/lib/Dropify/js/dropify.min.js"></script>
+
 
     <script>
     $(document).ready(function () {

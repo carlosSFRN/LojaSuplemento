@@ -128,6 +128,8 @@ namespace LojaSuplemento.Views
                 return NotFound();
             }
 
+            Convert.ToDecimal((produto.PrecoProduto) / 100);
+
             if (ModelState.IsValid)
             {
                 try
