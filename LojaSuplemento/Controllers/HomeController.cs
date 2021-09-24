@@ -27,7 +27,9 @@ namespace LojaSuplemento.Controllers
 
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Produto.ToListAsync());
+            List<Produto> produtos = await _context.Produto.ToListAsync();
+            produtos = produtos.Where(x => x.Desativado == false).ToList();
+            return View(produtos);
         }
 
         public IActionResult Privacy()

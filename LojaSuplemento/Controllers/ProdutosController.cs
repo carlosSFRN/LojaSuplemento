@@ -10,6 +10,7 @@ using LojaSuplemento.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using System.IO;
+using Microsoft.AspNetCore.Http;
 
 namespace LojaSuplemento.Views
 {
@@ -54,6 +55,7 @@ namespace LojaSuplemento.Views
         // GET: Produtoes/Create
         public IActionResult Create()
         {
+            ViewData["IdCategoria"] = new SelectList(_context.Categoria, "Id", "NomeCategoria");
             return View();
         }
 
@@ -63,26 +65,25 @@ namespace LojaSuplemento.Views
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,CodigoBarras,TituloProduto,DescricaoProduto,PrecoProduto,Quantidade,DataProdutoValidadeInicio,DataProdutoValidadeFim,DataProdutoInclusao,ImageUrl")] Produto produto)
+        public async Task<IActionResult> Create([Bind("Id,CodigoBarras,TituloProduto,DescricaoProduto,PrecoProduto,Quantidade,DataProdutoValidadeInicio,DataProdutoValidadeFim,DataProdutoInclusao,IdCategoria,Desativado,ImageUrl")] Produto produto)
         {
             if (ModelState.IsValid)
             {
-                //save image to wwwroot folder
-                string wwwrootPath = _hostEnvironment.WebRootPath;
-                string FileName = Path.GetFileNameWithoutExtension(produto.ImageUrl.FileName);
-                string extension = Path.GetExtension(produto.ImageUrl.FileName);
-                FileName = FileName + DateTime.Now.ToString("yymmssfff") + extension;
-                produto.ImageUrlPath = FileName;
-                string path = Path.Combine(wwwrootPath + "/img/produtos/" + FileName);
-                using (var fileStream = new FileStream(path, FileMode.Create))
+
+                var imagePrefix = Guid.NewGuid() + "_";
+
+                if (!await UploadFile(produto.ImageUrl, imagePrefix))
                 {
-                    await produto.ImageUrl.CopyToAsync(fileStream);
+                    return View(produto);
                 }
+
+                produto.ImageUrlPath = imagePrefix + produto.ImageUrl.FileName;
 
                 _context.Add(produto);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["IdCategoria"] = new SelectList(_context.Categoria, "Id", "NomeCategoria", produto.IdCategoria);
             return View(produto);
         }
 
@@ -102,16 +103,11 @@ namespace LojaSuplemento.Views
                 return NotFound();
             }
 
-            if (produto.ImageUrlPath != null)
+            if (produto.ImageUrlPath != null) 
             {
-                ViewBag.ImageUrl = Path.Combine("../../img/produtos/" + produto.ImageUrlPath);
-                ViewBag.ImageUrlOld = Path.Combine("/img/produtos/" + produto.ImageUrlPath);
+                ViewBag.ImageUrlPathOld = produto.ImageUrlPath;
             }
-            else
-            {
-                ViewBag.ImageUrl = Path.Combine("../../img/produtos/placeholder-img.png");
-            }
-            
+            ViewData["IdCategoria"] = new SelectList(_context.Categoria, "Id", "NomeCategoria");
             return View(produto);
         }
 
@@ -121,47 +117,32 @@ namespace LojaSuplemento.Views
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, string ImageUrlOld, [Bind("Id,CodigoBarras,TituloProduto,DescricaoProduto,PrecoProduto,Quantidade,DataProdutoValidadeInicio,DataProdutoValidadeFim,DataProdutoInclusao,ImageUrl,ImageUrlPath")] Produto produto)
+        public async Task<IActionResult> Edit(int id, string ImageUrlPathOld, [Bind("Id,CodigoBarras,TituloProduto,DescricaoProduto,PrecoProduto,Quantidade,DataProdutoValidadeInicio,DataProdutoValidadeFim,DataProdutoInclusao,IdCategoria,ImageUrl,ImageUrlPath,ImageUrlPathOld,Desativado")] Produto produto)
         {
             if (id != produto.Id)
             {
                 return NotFound();
             }
 
-            Convert.ToDecimal((produto.PrecoProduto) / 100);
-
             if (ModelState.IsValid)
             {
                 try
                 {
-                    //delete old img
-                    if (ImageUrlOld != null && produto.ImageUrl != null)
-                    {
-                        FileInfo fi = new FileInfo(_hostEnvironment.WebRootPath + ImageUrlOld);
+                    //Caso houver mudanca de imagem
+                    DeleteFileOld(ImageUrlPathOld);
 
-                        if (fi.Exists)
-                        {
-                            fi.Delete();
-                        }
+                    var imagePrefix = Guid.NewGuid() + "_";
+
+                    if (!await UploadFile(produto.ImageUrl, imagePrefix))
+                    {
+                        return View(produto);
                     }
 
-                    //save image to wwwroot folder
-                    if (produto.ImageUrl != null)
-                    {
-                        string wwwrootPath = _hostEnvironment.WebRootPath;
-                        string FileName = Path.GetFileNameWithoutExtension(produto.ImageUrl.FileName);
-                        string extension = Path.GetExtension(produto.ImageUrl.FileName);
-                        FileName = FileName + DateTime.Now.ToString("yymmssfff") + extension;
-                        produto.ImageUrlPath = FileName;
-                        string path = wwwrootPath + "/img/produtos/" + FileName;
-                        using (var fileStream = new FileStream(path, FileMode.Create))
-                        {
-                            await produto.ImageUrl.CopyToAsync(fileStream);
-                        }
-                    }
+                    produto.ImageUrlPath = imagePrefix + produto.ImageUrl.FileName;
 
                     _context.Update(produto);
                     await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -174,8 +155,8 @@ namespace LojaSuplemento.Views
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
             }
+            ViewData["IdCategoria"] = new SelectList(_context.Categoria, "Id", "NomeCategoria", produto.IdCategoria);
             return View(produto);
         }
 
@@ -213,6 +194,41 @@ namespace LojaSuplemento.Views
         private bool ProdutoExists(int id)
         {
             return _context.Produto.Any(e => e.Id == id);
+        }
+
+        private async Task<bool> UploadFile(IFormFile file, string imagePrefix)
+        {
+            if (file.Length <= 0) return false;
+
+            var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/img/produtos", imagePrefix + file.FileName);
+
+            using (var stream = new FileStream(path, FileMode.Create))
+            {
+                await file.CopyToAsync(stream);
+            }
+
+            return true;
+        }
+
+        private string RenameFilename(IFormFile file) 
+        {
+            string extension = Path.GetExtension(file.FileName);
+            string fileName = $"monster_nutrition_{DateTime.Now:yyyy'-'MM'-'dd'T'HH':'mm':'ss}{extension}";
+
+            return fileName;
+        }
+
+        private void DeleteFileOld(string fileName)
+        {
+            if (fileName != null) 
+            {
+                var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/img/produtos", fileName);
+
+                if (System.IO.File.Exists(path))
+                {
+                    System.IO.File.Delete(path);
+                }
+            }
         }
     }
 }

@@ -11,16 +11,31 @@
     </div>
     <div class="card-body">
         <form asp-action="Create" enctype="multipart/form-data">
-            <div class="form-row">
+            <div class="form-row mb-2">
                 <div class="col-md-4">
-                    <label asp-for="ImageUrlPath" class="control-label"></label>
-                    <input asp-for="ImageUrl" class="form-control dropify" data-height="350" data-max-file-size="500K" data-allowed-file-extensions="png jpeg jpg" data-default-file="@ViewBag.ImageUrl" />
-                    <span asp-validation-for="ImageUrl" class="text-danger"></span>
+                    <div class="col-md-4">
+                        <label asp-for="ImageUrl" class="control-label"></label>
+                        <input type="hidden" asp-for="ImageUrlPath" />
+                        <div class="form-group">
+                            <img src=""
+                                 alt=""
+                                 style="width: 300px; height: 350px;"
+                                 id="ImageUrlPathName" />
+                        </div>
+                        <div class="custom-file">
+                            <input asp-for="ImageUrl" class="custom-file-input" id="ImageUrl" accept=".png, .jpg, .jpeg" onchange="document.getElementById('ImageUrlPath').value = this.files[0].name;
+                            document.getElementById('ImageUrlPathName').src = window.URL.createObjectURL(this.files[0]);" />
+
+                            <label data-browse="Procurar Imagem" class="custom-file-label" for="ImageUrl"></label>
+                            <label style="display: none;" id="ImageUrl"></label>
+                            <span asp-validation-for="ImageUrl" class="text-danger"></span>
+                        </div>
+                    </div>
                 </div>
                 <div class="form-group col-md-8">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <div class="form-row">
-                        <div class="form-group col-md-4">
+                        <div class="form-group col-md-3">
                             <label asp-for="CodigoBarras" class="control-label"></label>
                             <input asp-for="CodigoBarras" class="form-control" />
                             <span asp-validation-for="CodigoBarras" class="text-danger"></span>
@@ -29,6 +44,11 @@
                             <label asp-for="TituloProduto" class="control-label"></label>
                             <input asp-for="TituloProduto" class="form-control" />
                             <span asp-validation-for="TituloProduto" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-md-1">
+                            <label asp-for="Desativado" class="control-label"></label>
+                            <input asp-for="Desativado" class="form-control" />
+                            <span asp-validation-for="Desativado" class="text-danger"></span>
                         </div>
                     </div>
                     <div class="form-row">
@@ -49,12 +69,17 @@
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="form-group col-md-6">
+                        <div class="form-group col-md-4">
+                            <label asp-for="IdCategoria" class="control-label"></label>
+                            <select asp-for="IdCategoria" class="form-control" asp-items="ViewBag.IdCategoria"></select>
+                            <span asp-validation-for="IdCategoria" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-md-4">
                             <label asp-for="DataProdutoValidadeInicio" class="control-label"></label>
                             <input asp-for="DataProdutoValidadeInicio" class="form-control" asp-format="{0:yyyy-MM-dd}" />
                             <span asp-validation-for="DataProdutoValidadeInicio" class="text-danger"></span>
                         </div>
-                        <div class="form-group col-md-6">
+                        <div class="form-group col-md-4">
                             <label asp-for="DataProdutoValidadeFim" class="control-label"></label>
                             <input asp-for="DataProdutoValidadeFim" class="form-control" asp-format="{0:yyyy-MM-dd}" />
                             <span asp-validation-for="DataProdutoValidadeFim" class="text-danger"></span>
@@ -82,3 +107,9 @@
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }*@
 
+<script>
+    $('#ImageUrl').change(function () {
+        $('#ImageUrl').text(this.files[0].name);
+        $('#ImageUrl')[0].style.display = 'block';
+    });
+</script>

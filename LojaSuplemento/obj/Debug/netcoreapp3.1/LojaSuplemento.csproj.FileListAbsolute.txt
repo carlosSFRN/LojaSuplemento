@@ -234,3 +234,4 @@ C:\Users\carlo\OneDrive\Área de Trabalho\Projetos\LojaSuplemento\LojaSuplemento
 C:\Users\carlo\OneDrive\Área de Trabalho\Projetos\LojaSuplemento\LojaSuplemento\obj\Debug\netcoreapp3.1\Razor\Views\Dashboard\Index.cshtml.g.cs
 C:\Users\carlo\OneDrive\Área de Trabalho\Projetos\LojaSuplemento\LojaSuplemento\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_LayoutInicial.cshtml.g.cs
 C:\Users\carlo\OneDrive\Área de Trabalho\Projetos\LojaSuplemento\LojaSuplemento\obj\Debug\netcoreapp3.1\LojaSuplemento.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\carlo\OneDrive\Área de Trabalho\Projetos\LojaSuplemento\LojaSuplemento\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Components\VendaAno\Default.cshtml.g.cs

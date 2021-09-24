@@ -12,6 +12,12 @@ namespace LojaSuplemento.Models
     {
         public int Id { get; set; }
 
+        [Display(Name = "Categoria")]
+        [Required(ErrorMessage = "'Categoria' é obrigatório")]
+        [ForeignKey("Categoria")]
+        public int IdCategoria { get; set; }
+        public virtual Categoria Categoria { get; set; }
+
         [Required(ErrorMessage = "'Código de barras' é obrigatório")]
         [Display(Name = "Código de Barras")]
         public string CodigoBarras { get; set; }
@@ -25,7 +31,6 @@ namespace LojaSuplemento.Models
         public string DescricaoProduto { get; set; }
 
         [Required(ErrorMessage = "'Preço do produto' é obrigatório")]
-        [Column(TypeName = "Money")]
         [Display(Name = "Preço do Produto")]
         public decimal PrecoProduto { get; set; }
 
@@ -49,12 +54,15 @@ namespace LojaSuplemento.Models
         [Display(Name = "Data Inclusão")]
         public DateTime DataProdutoInclusao { get; set; }
 
-        [Required(ErrorMessage = "'Imagem do produto' é obrigatório")]
         [NotMapped]
+        [Required(ErrorMessage = "'Imagem do Produto' é obrigatório")]
         [Display(Name = "Imagem do Produto")]
         public IFormFile ImageUrl { get; set; }
 
+
         [Display(Name = "Imagem do Produto")]
         public string ImageUrlPath { get; set; }
+
+        public bool Desativado { get; set; }
     }
 }

@@ -4,14 +4,16 @@ using LojaSuplemento.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace LojaSuplemento.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210919065404_preco decimal")]
+    partial class precodecimal
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -108,15 +110,9 @@ namespace LojaSuplemento.Migrations
                     b.Property<DateTime>("DataProdutoValidadeInicio")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("Desativado")
-                        .HasColumnType("bit");
-
                     b.Property<string>("DescricaoProduto")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("IdCategoria")
-                        .HasColumnType("int");
 
                     b.Property<string>("ImageUrlPath")
                         .HasColumnType("nvarchar(max)");
@@ -132,8 +128,6 @@ namespace LojaSuplemento.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("IdCategoria");
 
                     b.ToTable("Produto");
                 });
@@ -398,15 +392,6 @@ namespace LojaSuplemento.Migrations
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "IdentityUser")
                         .WithMany()
                         .HasForeignKey("UserId");
-                });
-
-            modelBuilder.Entity("LojaSuplemento.Models.Produto", b =>
-                {
-                    b.HasOne("LojaSuplemento.Models.Categoria", "Categoria")
-                        .WithMany()
-                        .HasForeignKey("IdCategoria")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

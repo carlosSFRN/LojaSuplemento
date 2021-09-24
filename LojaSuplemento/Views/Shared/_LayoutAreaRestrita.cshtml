@@ -57,10 +57,11 @@
 
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center">
-                <div class="sidebar-brand-icon rotate-n-15">
-                    <i class="fas fa-dumbbell"></i>
+                <div class="sidebar-brand-icon">
+                    @*<i class="fas fa-dumbbell"></i>*@
+                    <img src="~/img/monsterNutritionBrand.png" style="width:64px; height:64px" />
                 </div>
-                <div class="sidebar-brand-text mx-3">Whey Store</div>
+                <div class="sidebar-brand-text mx-3">MONSTER NUTRITION</div>
             </a>
 
             <!-- Divider -->
@@ -86,16 +87,50 @@
 
             <li class="nav-item">
                 <a class="nav-link" asp-area="" asp-controller="Categorias" asp-action="Index">
-                    <i class="fas fa-fw fa-chart-area"></i>
+                    <i class="fas fa-align-justify"></i>
                     <span>Categoria</span>
                 </a>
             </li>
 
             <li class="nav-item">
                 <a class="nav-link" asp-area="" asp-controller="Produtos" asp-action="Index">
-                    <i class="fas fa-fw fa-chart-area"></i>
+                    <i class="fas fa-boxes"></i>
                     <span>Produtos</span>
                 </a>
+            </li>
+
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#relatorioVendas"
+                   aria-expanded="true" aria-controls="relatorioVendas">
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    <span>Relatório de Vendas</span>
+                </a>
+                <div id="relatorioVendas" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Relatório de Vendas:</h6>
+                        <a class="collapse-item" asp-area="" asp-controller="TipoUsuario" asp-action="Index">Vendas por Dia</a>
+                        <a class="collapse-item" asp-area="" asp-controller="TipoAcesso" asp-action="Index">Vendas por Mês</a>
+                        <a class="collapse-item" asp-area="" asp-controller="AcessoTipoUsuario" asp-action="Index">Vendas por Ano</a>
+                    </div>
+                </div>
+            </li>
+
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#relatorioCompras"
+                   aria-expanded="true" aria-controls="relatorioCompras">
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    <span>Relatório de Compras</span>
+                </a>
+                <div id="relatorioCompras" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Relatório de Compras:</h6>
+                        <a class="collapse-item" asp-area="" asp-controller="TipoUsuario" asp-action="Index">Compras por Dia</a>
+                        <a class="collapse-item" asp-area="" asp-controller="TipoAcesso" asp-action="Index">Compras por Mês</a>
+                        <a class="collapse-item" asp-area="" asp-controller="AcessoTipoUsuario" asp-action="Index">Compras por Ano</a>
+                    </div>
+                </div>
             </li>
 
             <!-- Nav Item - Pages Collapse Menu -->
@@ -139,7 +174,7 @@
                     </button>
 
                     <!-- Topbar Search -->
-                    <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                    <!--<form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                         <div class="input-group">
                             <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
                                    aria-label="Search" aria-describedby="basic-addon2">
@@ -149,7 +184,7 @@
                                 </button>
                             </div>
                         </div>
-                    </form>
+                    </form>-->
 
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">

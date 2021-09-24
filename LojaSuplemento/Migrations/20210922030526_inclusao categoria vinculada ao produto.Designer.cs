@@ -4,14 +4,16 @@ using LojaSuplemento.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace LojaSuplemento.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210922030526_inclusao categoria vinculada ao produto")]
+    partial class inclusaocategoriavinculadaaoproduto
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -107,9 +109,6 @@ namespace LojaSuplemento.Migrations
 
                     b.Property<DateTime>("DataProdutoValidadeInicio")
                         .HasColumnType("datetime2");
-
-                    b.Property<bool>("Desativado")
-                        .HasColumnType("bit");
 
                     b.Property<string>("DescricaoProduto")
                         .IsRequired()
